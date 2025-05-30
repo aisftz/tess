@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn English Online</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pacifico&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #0ea5e9;
+      --primary-dark: #0284c7;
+      --secondary: #f59e0b;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+    
+    .logo {
+      font-family: 'Pacifico', cursive;
+    }
+    
+    .section-title {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 2.5rem;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--secondary);
+      border-radius: 2px;
+    }
+    
+    .animate-fade-in {
+      animation: fadeIn 1s ease-out;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background-color: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.4s ease;
+    }
+    
+    .dark-mode {
+      background-color: #0f172a;
+      color: #e2e8f0;
+    }
+    
+    .dark-mode .card {
+      background-color: #1e293b;
+      color: #cbd5e1;
+    }
+    
+    .dark-mode .section-title:after {
+      background: var(--secondary);
+    }
+    
+    .bookmarked {
+      color: #f59e0b;
+    }
+    
+    .floating-btn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+      z-index: 100;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .floating-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(14, 165, 233, 0.6);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-b from-sky-50 to-white text-gray-800 transition-colors duration-300">
+  <!-- Floating Action Button -->
+  <div class="floating-btn" id="theme-toggle">
+    <i class="fas fa-moon"></i>
+  </div>
+  
+  <header class="relative bg-sky-600 text-white py-4 shadow-xl sticky top-0 z-50">
+    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center px-6">
+      <div class="flex justify-between w-full md:w-auto items-center">
+        <h1 class="logo text-3xl md:text-4xl font-bold drop-shadow-sm">English Learning Hub</h1>
+        <div class="flex items-center space-x-4">
+          <button id="theme-toggle-mobile" class="md:hidden text-white">
+            <i class="fas fa-moon"></i>
+          </button>
+          <div class="md:hidden flex items-center">
+            <button id="burger-icon" class="text-white focus:outline-none">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <nav class="hidden md:flex space-x-6 text-lg">
+        <a href="#home" class="hover:underline hover:text-yellow-200 transition">Home</a>
+        <a href="#lessons" class="hover:underline hover:text-yellow-200 transition">Lessons</a>
+        <a href="#vocabulary" class="hover:underline hover:text-yellow-200 transition">Vocabulary</a>
+        <a href="#grammar" class="hover:underline hover:text-yellow-200 transition">Grammar</a>
+        <a href="#conversation" class="hover:underline hover:text-yellow-200 transition">Conversation</a>
+        <a href="#contact" class="hover:underline hover:text-yellow-200 transition">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation -->
+  <div id="responsive-nav" class="md:hidden fixed inset-0 h-full bg-black/50 z-50 hidden">
+    <div class="absolute top-0 right-0 w-64 h-full bg-sky-700 text-white">
+      <div class="flex justify-end p-4">
+        <button id="close-btn" class="text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav class="flex flex-col space-y-4 text-white pl-6">
+        <ul class="space-y-2 mt-4">
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#home" class="flex items-center">
+              <i class="fas fa-home mr-3"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#lessons" class="flex items-center">
+              <i class="fas fa-book mr-3"></i>
+              <span>Lessons</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#vocabulary" class="flex items-center">
+              <i class="fas fa-book-open mr-3"></i>
+              <span>Vocabulary</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#grammar" class="flex items-center">
+              <i class="fas fa-pen mr-3"></i>
+              <span>Grammar</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#conversation" class="flex items-center">
+              <i class="fas fa-comments mr-3"></i>
+              <span>Conversation</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <a href="#contact" class="flex items-center">
+              <i class="fas fa-envelope mr-3"></i>
+              <span>Contact</span>
+            </a>
+          </li>
+          <li class="px-4 py-2 hover:bg-sky-600 hover:text-white transition duration-300">
+            <button id="theme-toggle-nav" class="flex items-center w-full">
+              <i class="fas fa-moon mr-3"></i>
+              <span>Dark Mode</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <section id="home" class="h-screen flex items-center justify-center text-center bg-cover bg-center bg-no-repeat text-white animate-fade-in" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5)), url('img/janko-ferlic-sfL_QOnmy00-unsplash.jpg');">
+    <div class="container mx-auto max-w-3xl px-4">
+      <h2 class="text-5xl md:text-6xl font-extrabold mb-6 text-sky-300">Welcome to Your English Learning Journey</h2>
+      <p class="text-xl text-white mb-10 max-w-2xl mx-auto">Explore interactive lessons, practical vocabulary, and real-life conversations to improve your English skills every day!</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#lessons" class="inline-block bg-gradient-to-r from-sky-600 to-blue-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-lg">Start Learning</a>
+        <a href="#contact" class="inline-block bg-white/20 backdrop-blur-sm text-white px-8 py-4 rounded-full text-lg font-semibold hover:scale-105 transition-transform duration-300 shadow-lg border border-white/30">Join Our Community</a>
+      </div>
+    </div>
+  </section> 
+
+  <!-- Stats Section -->
+  <section class="py-16 bg-gradient-to-r from-sky-500 to-blue-600 text-white">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div class="p-4">
+          <div class="text-4xl font-bold mb-2">500+</div>
+          <div class="text-lg">Vocabulary Words</div>
+        </div>
+        <div class="p-4">
+          <div class="text-4xl font-bold mb-2">120+</div>
+          <div class="text-lg">Grammar Lessons</div>
+        </div>
+        <div class="p-4">
+          <div class="text-4xl font-bold mb-2">80+</div>
+          <div class="text-lg">Conversation Topics</div>
+        </div>
+        <div class="p-4">
+          <div class="text-4xl font-bold mb-2">10k+</div>
+          <div class="text-lg">Active Learners</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Lessons -->
+  <section id="lessons" class="py-24 bg-sky-50">
+    <div class="container mx-auto px-4">
+      <h3 class="section-title text-4xl font-bold text-center text-sky-800">Featured Lessons</h3>
+      <div class="grid md:grid-cols-3 gap-8">
+        <a href="#vocabulary" class="card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 text-left border border-sky-100">
+          <div class="w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center mb-6">
+            <i class="fas fa-book-open text-sky-600 text-2xl"></i>
+          </div>
+          <h4 class="text-2xl font-semibold mb-3 text-sky-700">Vocabulary Builder</h4>
+          <p class="text-gray-600 mb-4">Learn essential words and phrases used in everyday life with visual aids and examples.</p>
+          <div class="text-sky-600 font-medium flex items-center">
+            Explore now
+            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+          </div>
+        </a>
+        
+        <a href="#grammar" class="card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 text-left border border-sky-100">
+          <div class="w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center mb-6">
+            <i class="fas fa-pen text-sky-600 text-2xl"></i>
+          </div>
+          <h4 class="text-2xl font-semibold mb-3 text-sky-700">Grammar Mastery</h4>
+          <p class="text-gray-600 mb-4">Understand English sentence structure and grammar rules through clear, interactive examples.</p>
+          <div class="text-sky-600 font-medium flex items-center">
+            Explore now
+            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+          </div>
+        </a>
+        
+        <a href="#conversation" class="card bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-transform hover:-translate-y-2 text-left border border-sky-100">
+          <div class="w-16 h-16 rounded-full bg-sky-100 flex items-center justify-center mb-6">
+            <i class="fas fa-comments text-sky-600 text-2xl"></i>
+          </div>
+          <h4 class="text-2xl font-semibold mb-3 text-sky-700">Conversation Practice</h4>
+          <p class="text-gray-600 mb-4">Practice speaking with real-life dialogues and useful expressions for daily communication.</p>
+          <div class="text-sky-600 font-medium flex items-center">
+            Explore now
+            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vocabulary Section -->
+  <section id="vocabulary" class="py-24 bg-white">
+    <div class="container mx-auto max-w-4xl px-4">
+      <h2 class="section-title text-4xl font-bold text-center text-sky-700 mb-10">Essential Vocabulary</h2>
+      
+      <div class="bg-sky-50 p-6 rounded-xl shadow-sm mb-8">
+        <div class="flex flex-col sm:flex-row gap-4 items-center">
+          <div class="relative flex-grow">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input type="text" id="searchInput" placeholder="Search words in English or Indonesian..." class="pl-12 pr-4 py-3 border border-gray-300 rounded-lg w-full shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500" />
+          </div>
+          <button id="filterBtn" class="bg-sky-500 hover:bg-sky-600 text-white px-5 py-3 rounded-lg flex items-center transition">
+            <i class="fas fa-filter mr-2"></i> Filter
+          </button>
+        </div>
+      </div>
+      
+      <div id="vocabList" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Vocabulary items will be populated here -->
+      </div>
+      
+      <div class="mt-10 flex justify-center">
+        <button id="loadMore" class="bg-white text-sky-600 border border-sky-600 hover:bg-sky-50 px-6 py-3 rounded-lg font-medium transition">
+          Load More Words
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quiz Section -->
+  <section id="quiz" class="py-16 bg-sky-50">
+    <div class="container mx-auto px-4 max-w-2xl">
+      <h2 class="section-title text-3xl font-bold text-sky-700 mb-6 text-center">Vocabulary Quiz</h2>
+      
+      <div class="mb-6">
+        <div class="flex justify-between text-sm text-gray-600 mb-1">
+          <span>Progress</span>
+          <span id="progressText">0/8</span>
+        </div>
+        <div class="progress-bar">
+          <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div id="quiz-box" class="bg-white p-6 rounded-xl shadow-lg">
+        <p id="question" class="text-xl font-semibold mb-6 text-center"></p>
+        <div id="options" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6"></div>
+        <div id="feedback" class="text-lg font-semibold py-3 px-4 rounded-lg text-center hidden"></div>
+        <div class="text-center mt-6">
+          <button id="nextBtn" onclick="nextQuestion()" class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-medium transition hidden">
+            Next Question <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+        </div>
+        <p id="score" class="mt-6 text-lg text-center text-gray-700"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Grammar Section -->
+  <section id="grammar" class="py-24 bg-white">
+    <div class="container mx-auto max-w-4xl px-4">
+      <h2 class="section-title text-4xl font-bold text-center text-sky-700 mb-10">Grammar Basics</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card bg-sky-50 p-6 rounded-xl shadow-sm">
+          <h3 class="text-2xl font-semibold text-sky-700 mb-4">Tenses Overview</h3>
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Simple Present Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk menyatakan kebiasaan atau fakta umum.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + V1 (s/es untuk he/she/it)</p>
+              <p><strong>Contoh:</strong> She walks to school every day. / The sun rises in the east.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Present Continuous Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk aksi yang sedang berlangsung sekarang.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + am/is/are + V-ing</p>
+              <p><strong>Contoh:</strong> I am studying English now. / They are playing outside.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Simple Past Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk aksi yang terjadi di masa lalu.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + V2 (past form)</p>
+              <p><strong>Contoh:</strong> We visited Bali last year. / He cooked dinner yesterday.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="card bg-sky-50 p-6 rounded-xl shadow-sm">
+          <h3 class="text-2xl font-semibold text-sky-700 mb-4">Advanced Tenses</h3>
+          <div class="space-y-6">
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Present Perfect Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk menyatakan aksi yang telah terjadi dan masih relevan dengan saat ini.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + has/have + V3 (past participle)</p>
+              <p><strong>Contoh:</strong> I have finished my homework. / She has lived here for five years.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Past Continuous Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk aksi yang sedang berlangsung pada waktu tertentu di masa lalu.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + was/were + V-ing</p>
+              <p><strong>Contoh:</strong> I was watching TV when you called. / They were studying at 8 PM last night.</p>
+            </div>
+            
+            <div>
+              <h4 class="text-lg font-semibold text-sky-700 mb-1">Future Continuous Tense</h4>
+              <p class="text-gray-700 mb-2">Digunakan untuk menunjukkan aksi yang akan sedang berlangsung di waktu tertentu di masa depan.</p>
+              <p class="mb-1"><strong>Rumus:</strong> Subject + will be + V-ing</p>
+              <p><strong>Contoh:</strong> I will be traveling at this time next week. / She will be working on her thesis tomorrow morning.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Grammar Quiz -->
+  <section id="grammar-quiz" class="py-24 bg-sky-50">
+    <div class="container mx-auto max-w-4xl px-4">
+      <h2 class="section-title text-4xl font-bold text-center text-sky-700 mb-10">Grammar Quiz</h2>
+      
+      <div class="mb-6">
+        <div class="flex justify-between text-sm text-gray-600 mb-1">
+          <span>Progress</span>
+          <span id="grammarProgressText">0/5</span>
+        </div>
+        <div class="progress-bar">
+          <div id="grammarProgressFill" class="progress-fill" style="width: 0%"></div>
+        </div>
+      </div>
+      
+      <div class="card bg-white p-8 rounded-xl shadow-lg">
+        <div id="grammarQuiz" class="mb-6">
+          <p id="grammarQuestion" class="text-xl font-semibold mb-6"></p>
+          <div id="grammarOptions" class="space-y-3"></div>
+        </div>
+        
+        <div class="text-center">
+          <button id="grammarSubmit" class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-medium transition">
+            Submit Answer
+          </button>
+        </div>
+        
+        <p id="grammarResult" class="mt-6 text-lg font-semibold text-center"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversation Section -->
+  <section id="conversation" class="py-24 bg-white">
+    <div class="container mx-auto max-w-4xl px-4">
+      <h2 class="section-title text-4xl font-bold text-center text-sky-700 mb-10">Real-Life Conversation Scenarios</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="card bg-sky-50 p-6 rounded-xl shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center mr-3">
+              <i class="fas fa-user text-sky-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-sky-800">At the Restaurant</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="font-medium text-sky-700">Waiter:</p>
+              <p>Are you ready to order?</p>
+            </div>
+            
+            <div class="bg-sky-100 p-4 rounded-lg">
+              <p class="font-medium text-sky-700">You:</p>
+              <p>Yes, I'll have the grilled chicken and a lemonade, please.</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg">
+              <p class="font-medium text-sky-700">Waiter:</p>
+              <p>Would you like any appetizers or desserts?</p>
+            </div>
+            
+            <div class="bg-sky-100 p-4 rounded-lg">
+              <p class="font-medium text-sky-700">You:</p>
+              <p>Just the main course for now, thank you.</p>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium">Key Expressions:</p>
+            <ul class="list-disc pl-5 mt-1">
+              <li><em>I'll have...</em> - Saya mau pesan...</li>
+              <li><em>Would you like...?</em> - Apakah Anda mau...?</li>
+              <li><em>For now</em> - Untuk sekarang</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card bg-sky-50 p-6 rounded-xl shadow-sm">
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 rounded-full bg-sky-100 flex items-center justify-center mr-3">
+              <i class="fas fa-user text-sky-600"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-sky-800">Making a Phone Call</h3>
+          </div>
+          
+          <div class="space-y-4">
+            <div class="bg-white p-4 rounded-lg">
+              <p class="font-medium text-sky-700">You:</p>
+              <p>Hello, may I speak to Mr. David, please?</p>
+            </div>
+            
+            <div class="bg-sky-100 p-4 rounded-lg">
+              <p class="font-medium text-sky-700">Receptionist:</p>
+              <p>Sure, hold on a moment. Who's calling, please?</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg">
+              <p class="font-medium text-sky-700">You:</p>
+              <p>This is Sarah from ABC Company.</p>
+            </div>
+            
+            <div class="bg-sky-100 p-4 rounded-lg">
+              <p class="font-medium text-sky-700">Receptionist:</p>
+              <p>One moment, please. I'll connect you.</p>
+            </div>
+          </div>
+          
+          <div class="mt-4 text-sm text-gray-600">
+            <p class="font-medium">Key Expressions:</p>
+            <ul class="list-disc pl-5 mt-1">
+              <li><em>May I speak to...?</em> - Bisa bicara dengan...?</li>
+              <li><em>Hold on a moment</em> - Tunggu sebentar</li>
+              <li><em>Who's calling?</em> - Dengan siapa?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conversation Practice -->
+  <section id="conversation-practice" class="py-24 bg-sky-50">
+    <div class="container mx-auto max-w-4xl px-4">
+      <h2 class="section-title text-4xl font-bold text-center text-sky-800 mb-10">Interactive Conversation Practice</h2>
+      
+      <div class="card bg-white p-8 rounded-xl shadow-lg">
+        <div class="flex items-start mb-6">
+          <div class="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center mr-4 flex-shrink-0">
+            <i class="fas fa-robot text-sky-600 text-xl"></i>
+          </div>
+          <p class="text-lg" id="botLine"><strong>Bot:</strong> You walk into a coffee shop and see someone you know. What do you say?</p>
+        </div>
+        
+        <div id="optionsContainer" class="space-y-3 pl-16">
+          <!-- Options will be populated here -->
+        </div>
+        
+        <div id="conversationFeedback" class="mt-8 p-4 bg-sky-50 rounded-lg hidden">
+          <div class="flex">
+            <i class="fas fa-info-circle text-sky-600 mt-1 mr-3"></i>
+            <p id="feedbackText"></p>
+          </div>
+        </div>
+        
+        <div class="text-center mt-8">
+          <button id="nextBtnConv" onclick="nextScenario()" class="bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-medium transition hidden">
+            Next Scenario <i class="fas fa-arrow-right ml-2"></i>
+          </button>
+          <button id="restartBtn" onclick="restartPractice()" class="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-lg font-medium transition hidden">
+            <i class="fas fa-redo mr-2"></i> Practice Again
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 bg-white">
+    <div class="container mx-auto max-w-xl px-4">
+      <h3 class="section-title text-4xl font-bold mb-8 text-center text-sky-800">Get in Touch</h3>
+      
+      <form id="contactForm" class="space-y-6 card bg-sky-50 p-8 rounded-xl shadow-sm">
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium" for="name">Your Name</label>
+          <input type="text" id="name" placeholder="Enter your name" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 transition" />
+          <p id="nameError" class="text-red-500 text-sm mt-1 hidden">Please enter your name</p>
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium" for="email">Your Email</label>
+          <input type="email" id="email" placeholder="Enter your email" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 transition" />
+          <p id="emailError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid email</p>
+        </div>
+        
+        <div>
+          <label class="block text-gray-700 mb-2 font-medium" for="message">Your Message</label>
+          <textarea id="message" placeholder="What would you like to ask?" rows="5" class="w-full p-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 transition"></textarea>
+          <p id="messageError" class="text-red-500 text-sm mt-1 hidden">Please enter your message</p>
+        </div>
+        
+        <button type="submit" class="w-full bg-sky-600 hover:bg-sky-700 text-white px-4 py-4 rounded-lg font-semibold transition flex items-center justify-center">
+          <span id="submitText">Send Message</span>
+          <i id="submitSpinner" class="fas fa-spinner fa-spin ml-2 hidden"></i>
+        </button>
+        
+        <div id="successMessage" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg hidden">
+          <i class="fas fa-check-circle mr-2"></i> Your message has been sent successfully!
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-sky-700 text-white">
+    <div class="container mx-auto px-6 py-12 flex flex-col md:flex-row justify-between items-start gap-8">
+      <div class="max-w-sm">
+        <h2 class="logo text-3xl font-bold mb-3">English Learning Hub</h2>
+        <p class="text-sky-100 mb-4">Belajar bahasa Inggris dengan cara yang menyenangkan, interaktif, dan mudah dipahami. Mulai dari vocabulary, grammar, sampai conversation!</p>
+        <div class="flex space-x-4">
+          <a href="#" class="text-sky-100 hover:text-white transition">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="text-sky-100 hover:text-white transition">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" class="text-sky-100 hover:text-white transition">
+            <i class="fab fa-youtube"></i>
+          </a>
+          <a href="#" class="text-sky-100 hover:text-white transition">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sky-100">
+          <li><a href="#home" class="hover:text-white transition">Home</a></li>
+          <li><a href="#lessons" class="hover:text-white transition">Lessons</a></li>
+          <li><a href="#vocabulary" class="hover:text-white transition">Vocabulary</a></li>
+          <li><a href="#grammar" class="hover:text-white transition">Grammar</a></li>
+          <li><a href="#conversation" class="hover:text-white transition">Conversation</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact</h3>
+        <ul class="space-y-2 text-sky-100">
+          <li class="flex items-start">
+            <i class="fas fa-envelope mt-1 mr-3"></i>
+            <span>nurhabibahsyafitri@student.polmed.ac.id</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-phone mt-1 mr-3"></i>
+            <span>+62 819 9171 6036</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fab fa-instagram mt-1 mr-3"></i>
+            <span>@nuraisyaftri_</span>
+          </li>
+          <li class="flex items-start">
+            <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
+            <span>Politeknik Negeri Medan</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="bg-sky-800 text-center py-4 text-sm text-sky-200">
+      &copy; 2025 English Learning Hub. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    // Mobile navigation
+    const burgerIcon = document.getElementById('burger-icon');
+    const responsiveNav = document.getElementById('responsive-nav');
+    const closeBtn = document.getElementById('close-btn');
+
+    burgerIcon.addEventListener('click', () => {
+      responsiveNav.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      responsiveNav.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    });
+
+    responsiveNav.addEventListener('click', (e) => {
+      if (e.target === responsiveNav) {
+        responsiveNav.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+    const themeToggleNav = document.getElementById('theme-toggle-nav');
+    const body = document.body;
+
+    function toggleDarkMode() {
+      body.classList.toggle('dark-mode');
+      const isDarkMode = body.classList.contains('dark-mode');
+      localStorage.setItem('darkMode', isDarkMode);
+      
+      const moonIcons = document.querySelectorAll('.fa-moon');
+      moonIcons.forEach(icon => {
+        if (isDarkMode) {
+          icon.classList.remove('fa-moon');
+          icon.classList.add('fa-sun');
+        } else {
+          icon.classList.remove('fa-sun');
+          icon.classList.add('fa-moon');
+        }
+      });
+    }
+
+    themeToggle.addEventListener('click', toggleDarkMode);
+    themeToggleMobile.addEventListener('click', toggleDarkMode);
+    themeToggleNav.addEventListener('click', toggleDarkMode);
+
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'true') {
+      body.classList.add('dark-mode');
+      const moonIcons = document.querySelectorAll('.fa-moon');
+      moonIcons.forEach(icon => {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      });
+    }
+
+    // Vocabulary list
+    const vocab = [
+      ["Apple", "Apel", "noun"], 
+      ["Book", "Buku", "noun"], 
+      ["Cat", "Kucing", "noun"], 
+      ["Dog", "Anjing", "noun"], 
+      ["Eat", "Makan", "verb"], 
+      ["Fast", "Cepat", "adjective"], 
+      ["Good", "Baik", "adjective"], 
+      ["Happy", "Senang", "adjective"], 
+      ["Ice", "Es", "noun"], 
+      ["Jump", "Lompat", "verb"], 
+      ["Kind", "Baik hati", "adjective"], 
+      ["Love", "Cinta", "noun/verb"], 
+      ["Moon", "Bulan", "noun"], 
+      ["Night", "Malam", "noun"], 
+      ["Open", "Buka", "verb"], 
+      ["Pen", "Pulpen", "noun"], 
+      ["Queen", "Ratu", "noun"], 
+      ["Run", "Lari", "verb"], 
+      ["Sun", "Matahari", "noun"], 
+      ["Tree", "Pohon", "noun"], 
+      ["Umbrella", "Payung", "noun"], 
+      ["Very", "Sangat", "adverb"], 
+      ["Water", "Air", "noun"], 
+      ["Xylophone", "Silofon", "noun"], 
+      ["Yellow", "Kuning", "adjective"], 
+      ["Zoo", "Kebun binatang", "noun"]
+    ];
+
+    const vocabList = document.getElementById('vocabList');
+    const searchInput = document.getElementById('searchInput');
+    const loadMoreBtn = document.getElementById('loadMore');
+    let displayedVocab = 10;
+
+    function renderList(filter = '') {
+      vocabList.innerHTML = '';
+      const filteredVocab = vocab
+        .filter(([eng, ind]) =>
+          eng.toLowerCase().includes(filter.toLowerCase()) ||
+          ind.toLowerCase().includes(filter.toLowerCase())
+        )
+        .slice(0, displayedVocab);
+
+      if (filteredVocab.length === 0) {
+        vocabList.innerHTML = '<div class="col-span-2 text-center py-10"><p class="text-gray-500">No vocabulary found. Try a different search term.</p></div>';
+        return;
+      }
+
+      filteredVocab.forEach(([eng, ind, type]) => {
+        const item = document.createElement('div');
+        item.className = "card p-4 bg-white rounded-xl shadow hover:shadow-md transition flex items-start";
+        item.innerHTML = `
+          <div class="mr-4">
+            <button onclick="speak('${eng}')" class="text-sky-600 hover:text-sky-800">
+              <i class="fas fa-volume-up"></i>
+            </button>
+          </div>
+          <div class="flex-grow">
+            <div class="flex justify-between">
+              <strong class="text-lg">${eng}</strong>
+              <span class="text-xs bg-sky-100 text-sky-800 px-2 py-1 rounded">${type}</span>
+            </div>
+            <div class="text-gray-600 mt-1">${ind}</div>
+          </div>
+          <div>
+            <button onclick="toggleBookmark(this)" class="text-gray-400 hover:text-amber-500">
+              <i class="far fa-bookmark"></i>
+            </button>
+          </div>
+        `;
+        vocabList.appendChild(item);
+      });
+
+      // Show/hide load more button
+      loadMoreBtn.style.display = filteredVocab.length < vocab.length && displayedVocab < vocab.length ? 'block' : 'none';
+    }
+
+    function speak(text) {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      speechSynthesis.speak(utter);
+    }
+
+    function toggleBookmark(button) {
+      const icon = button.querySelector('i');
+      icon.classList.toggle('far');
+      icon.classList.toggle('fas');
+      icon.classList.toggle('bookmarked');
+    }
+
+    searchInput.addEventListener('input', e => renderList(e.target.value));
+    
+    loadMoreBtn.addEventListener('click', () => {
+      displayedVocab += 10;
+      renderList(searchInput.value);
+    });
+
+    renderList();
+
+    // Vocabulary Quiz
+    const quizData = [
+      { word: "apple", correct: "apel", options: ["apel", "jeruk", "pisang", "semangka"] },
+      { word: "book", correct: "buku", options: ["meja", "kursi", "buku", "kertas"] },
+      { word: "car", correct: "mobil", options: ["sepeda", "motor", "mobil", "kereta"] },
+      { word: "cat", correct: "kucing", options: ["anjing", "kuda", "kucing", "burung"] },
+      { word: "house", correct: "rumah", options: ["rumah", "gedung", "sekolah", "mobil"] },
+      { word: "milk", correct: "susu", options: ["susu", "air", "jus", "teh"] },
+      { word: "sun", correct: "matahari", options: ["matahari", "bulan", "bintang", "awan"] },
+      { word: "rain", correct: "hujan", options: ["hujan", "salju", "badai", "kabut"] },
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const feedbackEl = document.getElementById('feedback');
+    const scoreEl = document.getElementById('score');
+    const nextBtn = document.getElementById('nextBtn');
+    const progressFill = document.getElementById('progressFill');
+    const progressText = document.getElementById('progressText');
+
+    function showQuestion() {
+      const q = quizData[currentQuestion];
+      questionEl.textContent = `What is the Indonesian meaning of "${q.word}"?`;
+
+      optionsEl.innerHTML = '';
+      q.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.textContent = option;
+        btn.className = "bg-sky-100 hover:bg-sky-200 text-gray-800 py-3 rounded-lg transition font-medium";
+        btn.onclick = () => checkAnswer(option);
+        optionsEl.appendChild(btn);
+      });
+
+      feedbackEl.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      updateProgress();
+    }
+
+    function checkAnswer(answer) {
+      const correct = quizData[currentQuestion].correct;
+      feedbackEl.classList.remove('hidden');
+      
+      if (answer === correct) {
+        feedbackEl.textContent = "✅ Correct! Well done!";
+        feedbackEl.className = "bg-green-100 text-green-800 font-semibold py-2 px-4 rounded-lg";
+        score++;
+      } else {
+        feedbackEl.textContent = `❌ Incorrect! The correct answer is "${correct}".`;
+        feedbackEl.className = "bg-red-100 text-red-800 font-semibold py-2 px-4 rounded-lg";
+      }
+
+      // Disable all buttons after answer
+      document.querySelectorAll('#options button').forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correct) {
+          btn.classList.add('bg-green-200', 'hover:bg-green-200');
+        } else if (btn.textContent === answer) {
+          btn.classList.add('bg-red-200', 'hover:bg-red-200');
+        }
+      });
+
+      nextBtn.classList.remove('hidden');
+      updateProgress();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        showQuestion();
+      } else {
+        quizComplete();
+      }
+    }
+
+    function quizComplete() {
+      questionEl.textContent = "Quiz Completed!";
+      optionsEl.innerHTML = '';
+      feedbackEl.classList.add('hidden');
+      nextBtn.classList.add('hidden');
+      
+      scoreEl.textContent = `Your final score: ${score} out of ${quizData.length}`;
+      scoreEl.className = "text-xl font-bold text-center text-sky-700";
+      
+      // Add restart button
+      const restartBtn = document.createElement('button');
+      restartBtn.textContent = "Try Again";
+      restartBtn.className = "bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-medium transition mt-4";
+      restartBtn.onclick = restartQuiz;
+      optionsEl.appendChild(restartBtn);
+    }
+
+    function restartQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      showQuestion();
+      scoreEl.textContent = '';
+      scoreEl.className = "mt-6 text-lg text-gray-700";
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / quizData.length) * 100;
+      progressFill.style.width = `${progress}%`;
+      progressText.textContent = `${currentQuestion + 1}/${quizData.length}`;
+    }
+
+    showQuestion();
+
+    // Grammar Quiz
+    const grammarQuestions = [
+      {
+        question: "Choose the correct sentence:",
+        options: [
+          { text: "She go to school every day.", correct: false },
+          { text: "She goes to school every day.", correct: true },
+          { text: "She going to school every day.", correct: false }
+        ]
+      },
+      {
+        question: "Which one is grammatically correct?",
+        options: [
+          { text: "He don't like pizza.", correct: false },
+          { text: "He doesn't like pizza.", correct: true },
+          { text: "He isn't like pizza.", correct: false }
+        ]
+      },
+      {
+        question: "Which sentence is in present continuous tense?",
+        options: [
+          { text: "They plays soccer.", correct: false },
+          { text: "They are playing soccer.", correct: true },
+          { text: "They play soccer.", correct: false }
+        ]
+      },
+      {
+        question: "Which one uses the correct past tense?",
+        options: [
+          { text: "She eat breakfast this morning.", correct: false },
+          { text: "She ate breakfast this morning.", correct: true },
+          { text: "She eaten breakfast this morning.", correct: false }
+        ]
+      },
+      {
+        question: "What is the correct question form?",
+        options: [
+          { text: "You like coffee?", correct: false },
+          { text: "Do you like coffee?", correct: true },
+          { text: "Does you like coffee?", correct: false }
+        ]
+      }
+    ];
+
+    let currentGrammarIndex = 0;
+    const grammarQuestionEl = document.getElementById('grammarQuestion');
+    const grammarOptionsEl = document.getElementById('grammarOptions');
+    const grammarResultEl = document.getElementById('grammarResult');
+    const grammarSubmitBtn = document.getElementById('grammarSubmit');
+    const grammarProgressFill = document.getElementById('grammarProgressFill');
+    const grammarProgressText = document.getElementById('grammarProgressText');
+
+    function showGrammarQuestion() {
+      const q = grammarQuestions[currentGrammarIndex];
+      grammarQuestionEl.textContent = q.question;
+
+      grammarOptionsEl.innerHTML = '';
+      q.options.forEach((opt, i) => {
+        const div = document.createElement('div');
+        div.className = "flex items-start";
+        div.innerHTML = `
+          <input type="radio" id="opt${i}" name="grammar" value="${opt.text}" class="mt-1 mr-3">
+          <label for="opt${i}" class="flex-grow bg-sky-100 hover:bg-sky-200 cursor-pointer p-3 rounded-lg transition">${opt.text}</label>
+        `;
+        grammarOptionsEl.appendChild(div);
+      });
+
+      grammarResultEl.textContent = '';
+      grammarResultEl.className = "mt-4 text-lg font-semibold";
+      updateGrammarProgress();
+    }
+
+    grammarSubmitBtn.addEventListener('click', checkGrammarAnswer);
+
+    function checkGrammarAnswer() {
+      const selected = document.querySelector('input[name="grammar"]:checked');
+      
+      if (!selected) {
+        grammarResultEl.textContent = "Please select an answer.";
+        grammarResultEl.className = "text-amber-600 mt-4 font-semibold";
+        return;
+      }
+
+      const selectedText = selected.value;
+      const correctOption = grammarQuestions[currentGrammarIndex].options.find(opt => opt.correct);
+
+      if (selectedText === correctOption.text) {
+        grammarResultEl.textContent = "✅ Correct! Great job!";
+        grammarResultEl.className = "text-green-600 mt-4 font-semibold";
+      } else {
+        grammarResultEl.textContent = "❌ Oops! That's not right.";
+        grammarResultEl.className = "text-red-600 mt-4 font-semibold";
+      }
+
+      if (currentGrammarIndex < grammarQuestions.length - 1) {
+        grammarSubmitBtn.textContent = "Next Question";
+        grammarSubmitBtn.onclick = nextGrammarQuestion;
+      } else {
+        grammarSubmitBtn.textContent = "Finish Quiz";
+        grammarSubmitBtn.onclick = finishGrammarQuiz;
+      }
+    }
+
+    function nextGrammarQuestion() {
+      currentGrammarIndex++;
+      showGrammarQuestion();
+      grammarSubmitBtn.textContent = "Submit Answer";
+      grammarSubmitBtn.onclick = checkGrammarAnswer;
+    }
+
+    function finishGrammarQuiz() {
+      grammarQuestionEl.textContent = "Grammar Quiz Completed!";
+      grammarOptionsEl.innerHTML = '';
+      grammarResultEl.textContent = "You've completed all the grammar questions. Great work!";
+      grammarSubmitBtn.style.display = 'none';
+      
+      const restartBtn = document.createElement('button');
+      restartBtn.textContent = "Restart Quiz";
+      restartBtn.className = "bg-sky-500 hover:bg-sky-600 text-white px-6 py-3 rounded-lg font-medium transition";
+      restartBtn.onclick = restartGrammarQuiz;
+      grammarOptionsEl.appendChild(restartBtn);
+    }
+
+    function restartGrammarQuiz() {
+      currentGrammarIndex = 0;
+      showGrammarQuestion();
+      grammarSubmitBtn.style.display = 'block';
+      grammarSubmitBtn.textContent = "Submit Answer";
+      grammarSubmitBtn.onclick = checkGrammarAnswer;
+    }
+
+    function updateGrammarProgress() {
+      const progress = ((currentGrammarIndex + 1) / grammarQuestions.length) * 100;
+      grammarProgressFill.style.width = `${progress}%`;
+      grammarProgressText.textContent = `${currentGrammarIndex + 1}/${grammarQuestions.length}`;
+    }
+
+    showGrammarQuestion();
+
+    // Conversation Practice
+    const scenarios = [
+      {
+        question: "You walk into a coffee shop and see someone you know. What do you say?",
+        options: [
+          { text: "What are you doing here?", feedback: "😐 Hmm... sounds a bit suspicious. Try being more friendly." },
+          { text: "Give me your coffee.", feedback: "😅 That's a bit rude. Let's be polite!" },
+          { text: "Hey! Fancy seeing you here!", feedback: "👍 Great! That's friendly and natural." }
+        ]
+      },
+      {
+        question: "You meet someone new. How do you start the conversation?",
+        options: [
+          { text: "What's your name?", feedback: "👍 Nice! That's a great way to start." },
+          { text: "Do you like pizza?", feedback: "🍕 Funny, but maybe too random for an intro." },
+          { text: "Are you rich?", feedback: "🚫 Whoa, that's too personal!" }
+        ]
+      },
+      {
+        question: "You're lost and need directions. What do you say?",
+        options: [
+          { text: "Hey! Where's the library?", feedback: "😐 A bit too direct. Try adding 'please' or 'excuse me'." },
+          { text: "Excuse me, can you help me find the library?", feedback: "✅ Very polite and clear. Well done!" },
+          { text: "Yo! Library?", feedback: "😅 Too casual. Use full sentences." }
+        ]
+      },
+      {
+        question: "You want to buy something at a store. What do you say?",
+        options: [
+          { text: "How much is this?", feedback: "✅ Perfect! That's polite and clear." },
+          { text: "Give me the price.", feedback: "😐 A bit too direct. Try asking nicely." },
+          { text: "Is this free?", feedback: "😅 Funny, but not realistic!" }
+        ]
+      }
+    ];
+
+    let currentScenario = 0;
+    const botLine = document.getElementById('botLine');
+    const optionsContainer = document.getElementById('optionsContainer');
+    const feedbackContainer = document.getElementById('conversationFeedback');
+    const feedbackText = document.getElementById('feedbackText');
+    const nextBtnConv = document.getElementById('nextBtnConv');
+    const restartBtn = document.getElementById('restartBtn');
+
+    function renderScenario() {
+      const scene = scenarios[currentScenario];
+      botLine.innerHTML = `<strong>Bot:</strong> ${scene.question}`;
+
+      optionsContainer.innerHTML = scene.options.map((opt, i) => `
+        <button onclick="chooseResponse(${i})" class="w-full bg-white border border-sky-200 hover:bg-sky-50 text-left p-4 rounded-lg transition flex items-center">
+          <span class="mr-3 font-medium text-sky-700">${String.fromCharCode(65 + i)}.</span>
+          <span>${opt.text}</span>
+        </button>
+      `).join('');
+
+      feedbackContainer.classList.add('hidden');
+      nextBtnConv.classList.add('hidden');
+      restartBtn.classList.add('hidden');
+    }
+
+    function chooseResponse(index) {
+      const feedback = scenarios[currentScenario].options[index].feedback;
+      feedbackText.textContent = feedback;
+      feedbackContainer.classList.remove('hidden');
+      nextBtnConv.classList.remove('hidden');
+    }
+
+    function nextScenario() {
+      currentScenario++;
+      if (currentScenario < scenarios.length) {
+        renderScenario();
+      } else {
+        botLine.innerHTML = "<strong>Bot:</strong> You've completed all scenarios! 🎉 Great job practicing!";
+        optionsContainer.innerHTML = '';
+        feedbackContainer.classList.add('hidden');
+        nextBtnConv.classList.add('hidden');
+        restartBtn.classList.remove('hidden');
+      }
+    }
+
+    function restartPractice() {
+      currentScenario = 0;
+      renderScenario();
+    }
+
+    renderScenario();
+
+    // Contact form validation
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+    const nameError = document.getElementById('nameError');
+    const emailError = document.getElementById('emailError');
+    const messageError = document.getElementById('messageError');
+    const submitText = document.getElementById('submitText');
+    const submitSpinner = document.getElementById('submitSpinner');
+    const successMessage = document.getElementById('successMessage');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      let isValid = true;
+      
+      // Reset errors
+      nameError.classList.add('hidden');
+      emailError.classList.add('hidden');
+      messageError.classList.add('hidden');
+      
+      // Validate name
+      if (!nameInput.value.trim()) {
+        nameError.classList.remove('hidden');
+        isValid = false;
+      }
+      
+      // Validate email
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(emailInput.value)) {
+        emailError.classList.remove('hidden');
+        isValid = false;
+      }
+      
+      // Validate message
+      if (!messageInput.value.trim()) {
+        messageError.classList.remove('hidden');
+        isValid = false;
+      }
+      
+      if (isValid) {
+        // Show loading state
+        submitText.classList.add('hidden');
+        submitSpinner.classList.remove('hidden');
+        
+        // Simulate form submission
+        setTimeout(() => {
+          // Hide loading state
+          submitText.classList.remove('hidden');
+          submitSpinner.classList.add('hidden');
+          
+          // Show success message
+          successMessage.classList.remove('hidden');
+          
+          // Reset form
+          contactForm.reset();
+          
+          // Hide success message after 5 seconds
+          setTimeout(() => {
+            successMessage.classList.add('hidden');
+          }, 5000);
+        }, 1500);
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 80,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          responsiveNav.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
